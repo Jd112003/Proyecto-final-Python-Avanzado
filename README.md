@@ -24,9 +24,9 @@ El juego incluye un contador de FPS en la esquina superior izquierda para compar
 
 | Métrica | Nativo (Pygame) | WebAssembly (Pygbag) |
 |---------|-----------------|----------------------|
-| **FPS Promedio** | ~86 FPS | ~73 FPS |
-| **FPS Mínimo** | ~61 FPS | ~69 FPS |
-| **FPS Máximo** | ~109 FPS | ~102 FPS |
+| **FPS Promedio** | ~123 FPS | ~73 FPS |
+| **FPS Mínimo** | ~120 FPS | ~69 FPS |
+| **FPS Máximo** | ~125 FPS | ~102 FPS |
 | **Target FPS** | 120 | 120 |
 
 > **Nota**: El rendimiento de WebAssembly mejora a medida que disminuyen los bloques en pantalla (menos objetos que renderizar). También mejora cuando el navegador está en primer plano.
