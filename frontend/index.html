@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Breakout Web</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a2e; color: white; text-align: center; }
+        #game-container { width: 800px; height: 600px; margin: 0 auto; border: 2px solid #0f3460; }
+        iframe { width: 100%; height: 100%; border: none; }
+        #scores { margin-top: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { background: #16213e; margin: 5px auto; width: 300px; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Python Breakout Web</h1>
+    
+    <div id="game-container">
+        <!-- El juego compilado por Pygbag corre aquí (renombrado a game.html) -->
+        <iframe src="game.html"></iframe>
+    </div>
+
+    <div id="scores">
+        <h2>Top Scores</h2>
+        <ul id="score-list">Loading...</ul>
+        <button onclick="loadScores()">Refresh Scores</button>
+    </div>
+
+    <script>
+        async function loadScores() {
+            try {
+                // Nginx redirige /api al backend
+                const res = await fetch('/api/scores');
+                const data = await res.json();
+                const list = document.getElementById('score-list');
+                list.innerHTML = '';
+                data.forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = `${s.username}: ${s.score}`;
+                    list.appendChild(li);
+                });
+            } catch (e) {
+                console.error("Error loading scores:", e);
+            }
+        }
+        loadScores();
+        setInterval(loadScores, 5000);
+    </script>
+</body>
+</html>
