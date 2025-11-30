@@ -532,9 +532,15 @@ class Game:
                 surf.blit(txt, (rect.centerx - txt.get_width()//2, rect.centery - txt.get_height()//2))
 
     def draw_hud(self, surf: pg.Surface):
+        # FPS counter en la esquina superior izquierda
+        fps = self.clock.get_fps()
+        fps_txt = self.font.render(f"FPS: {fps:.1f} (WebAssembly)", True, GREEN)
+        surf.blit(fps_txt, (16, 16))
+        
+        # Score, Lives y Level debajo del FPS
         txt = f"Score: {self.score:06d}   Lives: {max(0, self.lives)}   Level: {self.level}"
         img = self.font.render(txt, True, WHITE)
-        surf.blit(img, (16, 16))
+        surf.blit(img, (16, 46))
 
     def draw_input_name(self, surf: pg.Surface):
         overlay = pg.Surface((LOGICAL_W, LOGICAL_H), pg.SRCALPHA)
