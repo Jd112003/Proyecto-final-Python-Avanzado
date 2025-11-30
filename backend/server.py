@@ -34,8 +34,8 @@ class ScoreResponse(BaseModel):
 
 @app.get("/api/scores", response_model=list[ScoreResponse])
 def get_top_scores(db: Session = Depends(get_db)):
-    # Retorna los top 10 puntajes
-    return db.query(Score).order_by(Score.score.desc()).limit(10).all()
+    # Retorna los top 5 puntajes
+    return db.query(Score).order_by(Score.score.desc()).limit(5).all()
 
 @app.post("/api/scores")
 def create_score(score: ScoreCreate, db: Session = Depends(get_db)):

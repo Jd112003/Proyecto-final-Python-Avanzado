@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Breakout Web</title>
     <style>
         body { font-family: sans-serif; background: #1a1a2e; color: white; text-align: center; }
@@ -14,15 +15,19 @@
 <body>
     <h1>Python Breakout Web</h1>
     
-    <div id="game-container">
-        <!-- El juego compilado por Pygbag corre aquí (renombrado a game.html) -->
-        <iframe src="game.html"></iframe>
-    </div>
+    <div id="main-wrapper" style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; flex-wrap: wrap; padding: 20px;">
+        <div id="game-container">
+            <!-- El juego compilado por Pygbag corre aquí (renombrado a game.html) -->
+            <iframe src="game.html"></iframe>
+        </div>
 
-    <div id="scores">
-        <h2>Top Scores</h2>
-        <ul id="score-list">Loading...</ul>
-        <button onclick="loadScores()">Refresh Scores</button>
+        <div id="scores" style="text-align: left; min-width: 300px;">
+            <h2 style="text-align: center; margin-top: 0;">Top Scores</h2>
+            <ul id="score-list">Loading...</ul>
+            <div style="text-align: center;">
+                <button onclick="loadScores()">Refresh Scores</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -33,9 +38,18 @@
                 const data = await res.json();
                 const list = document.getElementById('score-list');
                 list.innerHTML = '';
-                data.forEach(s => {
+                
+                const medals = ["🥇", "🥈", "🥉"];
+                
+                data.forEach((s, index) => {
                     const li = document.createElement('li');
-                    li.textContent = `${s.username}: ${s.score}`;
+                    let prefix = "";
+                    if (index < 3) {
+                        prefix = medals[index] + " ";
+                    } else {
+                        prefix = `#${index + 1} `;
+                    }
+                    li.textContent = `${prefix}${s.username}: ${s.score}`;
                     list.appendChild(li);
                 });
             } catch (e) {
